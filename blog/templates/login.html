@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="container"><br>
+  <h1>Faça Login</h1>
+    <hr>
+      <form method="POST" action="" class="border p-4 mt-5 mx-auto p-2" style="width: 500px;">
+    {{ form_login.csrf_token }}
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Digite seu email</label>
+        <input type="email" class="form-control{% if form_login.email.errors %} is-invalid{% endif %}" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+        {% if form_login.email.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_login.email.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Digite sua senha</label>
+        <input type="password" class="form-control{% if form_login.senha.errors %} is-invalid{% endif %}" id="exampleInputPassword1" name="senha">
+        {% if form_login.senha.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_login.senha.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="lembrar_dados">
+        <label class="form-check-label" for="exampleCheck1">Lembrar dados de login</label>
+    </div>
+    <button type="submit" class="btn btn-primary" name="submit">Login</button>
+</form>
+
+      </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container"><br>
+  <h1>Crie sua conta</h1>
+    <hr>
+      <form method="POST" action="{{ url_for('criarconta') }}" class="border p-4 mt-5 mx-auto p-2" style="width: 500px;">
+    {{ form_criarconta.csrf_token }}
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">E-mail</label>
+        <input type="email" class="form-control {% if form_criarconta.email.errors %} is-invalid {% endif %}" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+        {% if form_criarconta.email.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_criarconta.email.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputUsername1" class="form-label">Username</label>
+        <input type="text" class="form-control {% if form_criarconta.username.errors %} is-invalid {% endif %}" id="exampleInputUsername1" name="username">
+        {% if form_criarconta.username.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_criarconta.username.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Senha</label>
+        <input type="password" class="form-control {% if form_criarconta.senha.errors %} is-invalid {% endif %}" id="exampleInputPassword1" name="senha">
+        {% if form_criarconta.senha.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_criarconta.senha.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="exampleConfirmPassword1" class="form-label">Confirmação da Senha</label>
+        <input type="password" class="form-control {% if form_criarconta.confirmacao_senha.errors %} is-invalid {% endif %}" id="exampleConfirmPassword1" name="confirmacao_senha">
+        {% if form_criarconta.confirmacao_senha.errors %}
+            <div class="invalid-feedback">
+                {% for error in form_criarconta.confirmacao_senha.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary" name="submit">Criar Conta</button>
+</form>
+
+    </div>
+{% endblock %}

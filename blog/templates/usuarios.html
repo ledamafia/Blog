@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <div style="text-align: center">
+        <h1>Usuários</h1>
+    </div>
+    <div class="row">
+        {% for usuario in lista_usuarios %}
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4"><br>
+                        <div class="profile-picture d-flex align-items-center justify-content-center">
+                            <img src="{{ url_for('static', filename='fotos_perfil/' + usuario.foto_perfil) }}" alt="Foto de Perfil" class="img-fluid rounded-start">
+                        </div>
+                    </div>
+                    <div class="col-md-8 d-flex align-items-center">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ usuario.username }}</h5>
+                            <p class="card-text">Total de Posts: {{ usuario.contar_post() }}</p>
+                            <p class="card-text">Interesses: {{ usuario.temas.replace(';', ' ') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<body>
+    <div class="container-fluid mt-5">
+        {% if post %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="post-image"></div>
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" alt="Foto de Perfil" width="100" class="rounded mb-2 img-thumbnail">
+                        <strong class="text-center">@{{ post.autor.username if post.autor else '' }}</strong>
+                            {% if form %}
+                            <a href="#form_editarpost">Editar Post</a><a href="#" class='text-danger' data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir Post</a>
+                            {% endif %}
+
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <p class="mb-0">Tema:</p>
+                            <div class="p-1 rounded shadow-sm bg-light">
+                                <strong class="font-italic mb-0">{{ post.autor.temas if post.autor else '' }}</strong>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="card-title text-center">
+                                {{ post.titulo }}
+                                <small class="text-muted" style="font-size: 10px"> - Data de criação: {{ post.data_criacao.strftime('%Y-%m-%d') }}</small>
+                            </h5>
+                            <p class="card-text text-center">
+                                {{ post.conteudo }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center">O post não foi encontrado.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    {% if form %}
+    <div class="container mt-3">
+        <form method="POST" id="form_editarpost">
+            {{ form.csrf_token }}
+            <legend> Editar Post </legend>
+            <div class="mb-3">
+                {{ form.titulo.label(class="form-label") }}
+                {{ form.titulo(class="form-control") }}
+                {% if form.titulo.errors %}
+                    {% for error in form.titulo.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.conteudo.label(class="form-label") }}
+                {{ form.conteudo(class="form-control") }}
+                {% if form.conteudo.errors %}
+                    {% for error in form.conteudo.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <div class="form-label">Selecione um tema</div>
+                {% for campo in form %}
+                    {% if 'temas_' in campo.name %}
+                        <div class="form-group">
+                            {{ campo(class="form-check-input") }}
+                            {{ campo.label(class='form-check-label') }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-block">Publicar</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</body>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tem certeza que deseja exlcuir post?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Este Post será excluido permanentemente.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+              <form action="{{ url_for('excluir_post', post_id=post.id) }}" method="post">
+                  <button type="submit" class="btn btn-primary">Excluir <Post></Post></button>
+              </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

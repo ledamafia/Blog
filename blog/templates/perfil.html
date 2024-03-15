@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="container">
+    <div style = 'text-align: center'>
+        <h1>
+            <div class="row py-5 px-4">
+                <div class="col-md-5 mx-auto"> <!-- Profile widget -->
+                    <div class="bg-white shadow rounded overflow-hidden">
+                        <div class="px-4 pt-0 pb-4 cover">
+                            <div class="media align-items-end profile-head">
+                                <div class="profile mr-3 pe-4">
+                                    <img src="{{ foto_perfil }}" alt="..." width="200" class="rounded mb-2 img-thumbnail">
+                                    <a href="{{ url_for('editar_perfil') }}" class="btn btn-outline-dark btn-sm btn-block">Edite seu perfil</a>
+                                </div>
+                                <div class="media-body mb-5 text-white">
+                                    <h4 class="mt-4 mb-0">{{ current_user.email }}</h4>
+                                    <p class="small mb-0"> <i class="fas fa-map-marker-alt mr-2"></i>@{{ current_user.username }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-4 py-3">
+                           <ul class="list-inline text-center">
+                             <li class="list-inline-item">
+                                <h5 class="font-weight-bold mb-0 d-block">{{ current_user.contar_post() }}</h5>
+                                <small class="text-muted"><i class="fas fa-image mr-1"></i>Post</small>
+                             </li>
+                            </ul>
+                        </div>
+                        <div class="px-4 py-3">
+                            <h5 class="mb-0">Interesse</h5>
+                            <div class="p-4 rounded shadow-sm bg-light">
+                                <p class="font-italic mb-0">{{ current_user.temas.replace(';', ' ') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h1>
+
+    </div>
+</div>
+
+{% block editar_perfil %}
+{% endblock %}
+
+{% endblock %}

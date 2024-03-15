@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div style="text-align: center"><br>
+        <h1>Sobre {{ tema }}</h1>
+        <h3>Últimos Posts</h3><br>
+        <ul style="list-style-type: none;"> <!-- Adicione o estilo CSS aqui -->
+            {% for post in posts %}
+            <li>
+                <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
+                <p>{{ post.conteudo }}</p>
+                <p>Publicado em: {{ post.data_criacao.strftime('%Y-%m-%d') }}</p>
+                <hr>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<body>
+    <header class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1 class="display-4">Bem-vindo ao Blog do Desabafo</h1>
+            <p class="lead">Explore o mundo através das nossas experiências de vida!</p>
+        </div>
+    </header>
+
+<body>
+    <div class="container mt-5">
+    <h2>Últimas Postagens</h2>
+    <div class="row">
+        {% for group in posts|batch(6) %}
+        {% for post in group %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="post-image"></div>
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" alt="..." width="100" class="rounded mb-2 img-thumbnail">
+                    <strong class="text-center">@{{ post.autor.username}}</strong>
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <p class="mb-0">Tema:  </p>
+                        <div class="p-1 rounded shadow-sm bg-light">
+                            <strong class="font-italic mb-0">  {{ post.autor.temas }}</strong>
+                        </div>
+                    </div>
+                    <h5 class="card-title text-center">
+                        {{ post.titulo }}
+                    </h5>
+                    <p class="card-text text-center">
+                        {{ post.conteudo[:90] }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        <a href="{{ url_for('feed') }}" class="btn btn-primary">Leia Mais</a>
+    </div>
+</div><br>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="post-image"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Sobre o blog</h5>
+                        <p class="card-text">Seja bem-vindo ao nosso espaço de expressão criativa e diversidade de pensamento. Nosso blog é um ambiente acolhedor e aberto, perfeito para aqueles que adoram explorar novas ideias e compartilhar suas próprias perspectivas através da escrita.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="post-image"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Frase do dia</h5>
+                        <p class="card-text">Seja grato!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container mt-5 text-center">
+        <p>&copy; 2024 Blog do Viajante. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

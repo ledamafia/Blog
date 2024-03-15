@@ -1,0 +1,53 @@
+{% extends 'perfil.html' %}
+
+
+{% block editar_perfil %}
+<div class="container mt-0">
+    <style="text-align: center">
+        <h2>Editar Perfil</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+                {% for error in form.username.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr>
+            <h2>Temas</h2>
+            {% for campo in form %}
+                {% if 'temas_' in campo.name %}
+                        <div class="form-group">
+                            {{ campo(class="form-check-input") }}
+                            {{ campo.label(class='form-check-label') }}
+                        </div>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <div class="form-group">
+                {{ form.foto_perfil.label }}
+                {{ form.foto_perfil(class="form-control-file") }}
+                {% if form.foto_perfil.errors %}
+                    {% for erro in form.foto_perfil.errors %}
+                        <span class="text-monospace">{{ erro }}</span><br>
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
+            </div>
+        </form>
+        {% if form.errors %}
+            <div class="text-monospace">Username já existe. Escolha outro..</div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

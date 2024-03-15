@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container mt-3">
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título do post</label>
+            {{ form.titulo(class="form-control", id="titulo") }}
+            {% if form.titulo.errors %}
+                <div class="text-danger">{{ form.titulo.errors|join(", ") }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="conteudo" class="form-label">Escreva seu post</label>
+            {{ form.conteudo(class="form-control", id="conteudo") }}
+            {% if form.conteudo.errors %}
+                <div class="text-danger">{{ form.conteudo.errors|join(", ") }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="tema" class="form-label">Selecione um tema</label>
+            {{ form.tema(class="form-select", id="tema") }}
+            {% if form.tema.errors %}
+                <div class="text-danger">{{ form.tema.errors|join(", ") }}</div>
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Postar</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
+
