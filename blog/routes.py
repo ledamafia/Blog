@@ -96,7 +96,7 @@ def obter_posts_por_tema(tema):
 def posts_por_tema(tema):
     posts = obter_posts_por_tema(tema)
     print(posts)  # Adicione esta linha para verificar os posts recuperados
-    return render_template("temas.html", tema=tema, posts=posts, temas_disponiveis=temas_disponiveis)
+    return render_template("temas.html", tema=tema, posts=posts, temas_disponiveis=temas_disponiveisgit)
 
 @app.route("/post/criar", methods=['GET', 'POST'])
 @login_required
